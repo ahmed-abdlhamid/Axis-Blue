@@ -1,0 +1,9 @@
+# Local visual QA captures
+assets/preview-*.png
+assets/logo-dark-preview.png
+logo.jpeg
+# Source-site snapshots are documented, but not required to run the site.
+reference/*.html
+reference/*.json
+# Previous one-off generator retained locally for reference.
+reference/build-pages-original.cjs
