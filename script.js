@@ -2,7 +2,8 @@
 
 const root = document.documentElement;
 const english = root.lang === 'en';
-const text = (ar, en) => english ? en : ar;
+const arabicCopy = value => String(value).replace(/مسبحك/g,'حمام السباحة').replace(/للمسبح/g,'لحمام السباحة').replace(/بالمسبح/g,'بحمام السباحة').replace(/المسبح/g,'حمام السباحة').replace(/مسبح/g,'حمام السباحة');
+const text = (ar, en) => english ? en : arabicCopy(ar);
 const pageFile = name => `${english ? 'en-' : ''}${name}.html`;
 const escapeHTML = value => String(value).replace(/[&<>"']/g, character => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[character]));
 const savePreference = (key, value) => { try { localStorage.setItem(key, value); } catch { /* Local files may restrict storage. */ } };
@@ -131,13 +132,16 @@ if (document.querySelector('#product-detail')) {
     const description = category[english ? 4 : 3];
     const message = text(`مرحباً AXIS Blue، أود معرفة تفاصيل ${product.name} (الكود: ${product.code}).`,`Hello AXIS Blue, I would like details about ${product.nameEn} (code: ${product.code}).`);
     const whatsapp = 'https://wa.me/201034031505?text=' + encodeURIComponent(message);
-    const waIcon = document.querySelector('.floating-wa svg').outerHTML;
-    detail.innerHTML = `<p class="breadcrumb detail-breadcrumb"><a href="${pageFile('products')}">${text('المنتجات','Products')}</a> / <a href="${pageFile('products')}?category=${product.category}">${escapeHTML(categoryName(category))}</a></p><div class="detail-layout"><figure class="detail-image"><img src="${escapeHTML(product.image)}" alt="${escapeHTML(name)}" width="400" height="400"></figure><div class="detail-copy"><p class="intro-label">${escapeHTML(categoryName(category))}</p><h1>${escapeHTML(name)}</h1><p>${escapeHTML(description)}</p><dl><div><dt>${text('كود المنتج','Product code')}</dt><dd><bdi>${escapeHTML(product.code || '—')}</bdi></dd></div><div><dt>${text('الفئة','Category')}</dt><dd>${escapeHTML(categoryName(category))}</dd></div></dl><p>${text('المواصفات المذكورة في اسم المنتج تخص هذا الموديل. تواصل معنا لمراجعة ملاءمته لاحتياجات المسبح وتأكيد التفاصيل.','Specifications stated in the product name refer to this model. Contact us to review its suitability for your pool and confirm the details.')}</p><p class="catalog-note">${text('عرض المنتج لا يؤكد توافره لدى المحل. يُرجى التواصل قبل الاتفاق.','This listing does not confirm availability at the shop. Please contact us before making arrangements.')}</p><a class="button primary whatsapp" href="${whatsapp}" target="_blank" rel="noopener noreferrer">${waIcon}${text('تواصل بخصوص المنتج','Contact us about this product')}</a></div></div>`;
+    detail.innerHTML = `<p class="breadcrumb detail-breadcrumb"><a href="${pageFile('products')}">${text('المنتجات','Products')}</a> / <a href="${pageFile('products')}?category=${product.category}">${escapeHTML(categoryName(category))}</a></p><div class="detail-layout"><figure class="detail-image"><img src="${escapeHTML(product.image)}" alt="${escapeHTML(name)}" width="400" height="400"></figure><div class="detail-copy"><p class="intro-label">${escapeHTML(categoryName(category))}</p><h1>${escapeHTML(name)}</h1><p>${escapeHTML(description)}</p><dl><div><dt>${text('كود المنتج','Product code')}</dt><dd><bdi>${escapeHTML(product.code || '—')}</bdi></dd></div><div><dt>${text('الفئة','Category')}</dt><dd>${escapeHTML(categoryName(category))}</dd></div></dl><p>${text('المواصفات المذكورة في اسم المنتج تخص هذا الموديل. تواصل معنا لمراجعة ملاءمته لاحتياجات المسبح وتأكيد التفاصيل.','Specifications stated in the product name refer to this model. Contact us to review its suitability for your pool and confirm the details.')}</p><p class="catalog-note">${text('عرض المنتج لا يؤكد توافره لدى المحل. يُرجى التواصل قبل الاتفاق.','This listing does not confirm availability at the shop. Please contact us before making arrangements.')}</p></div></div>`;
     const specificationRows = (product.specs || []).map(spec => `<div><dt>${escapeHTML(english ? spec.labelEn : spec.label)}</dt><dd>${escapeHTML(english ? spec.valueEn : spec.value)}</dd></div>`).join('');
     detail.querySelector('dl').insertAdjacentHTML('beforeend', specificationRows);
-    document.title = name + ' | AXIS Blue';
-    const metadata = [['meta[name="description"]',`${name}. ${description}`],['meta[property="og:title"]',`${name} | AXIS Blue`],['meta[property="og:description"]',description],['meta[property="og:image"]',product.image]];
+    document.title = 'AXIS Blue | ' + name;
+    const metadata = [['meta[name="description"]',`${name}. ${description}`],['meta[property="og:title"]',`AXIS Blue | ${name}`],['meta[property="og:description"]',description],['meta[name="twitter:title"]',`AXIS Blue | ${name}`],['meta[name="twitter:description"]',`${name}. ${description}`]];
     for (const [selector, content] of metadata) document.querySelector(selector).content = content;
-    document.querySelector('.floating-wa').href = whatsapp;
+    document.querySelector('.contact-band .whatsapp').href = whatsapp;
+    const canonical = new URL(pageFile('product'), 'https://axisblue.vercel.app/');
+    canonical.searchParams.set('product', product.id);
+    document.querySelector('link[rel="canonical"]').href = canonical.href;
+    document.querySelector('meta[property="og:url"]').content = canonical.href;
   }
 }

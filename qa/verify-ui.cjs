@@ -7,14 +7,14 @@ const journeysOnly = process.argv.includes('--journeys-only');
 const report = journeysOnly ? JSON.parse(fs.readFileSync('qa/results/verification.json','utf8')) : {widths,views:[],checks:[],errors:[]};
 if(journeysOnly){report.checks=[];report.errors=[];delete report.failure;}
 const pages = ['index','products','services','about','contact','product','catalog'];
-const screenshotDir='qa/results/after';
+const screenshotDir='qa/results/content-update';
 function check(condition,message) {if(!condition) throw new Error(message);}
-async function settle(page) {await page.waitForLoadState('networkidle');await page.evaluate(()=>document.fonts.ready);}
+async function settle(page) {await page.waitForLoadState('networkidle');await page.evaluate(()=>document.fonts.ready);await page.locator('img[loading=lazy]').evaluateAll(es=>es.forEach(e=>e.loading='eager'));await page.evaluate(()=>Promise.all([...document.images].map(i=>i.decode().catch(()=>{}))));}
 async function audit(page,width) {
  return page.evaluate(width=>{
   const visible=e=>!!e.getClientRects().length && getComputedStyle(e).visibility!=='hidden';
   const rect=e=>{const r=e.getBoundingClientRect();return {left:r.left,right:r.right,top:r.top,bottom:r.bottom,width:r.width,height:r.height};};
-  const overflow=[...document.querySelectorAll('body *')].filter(e=>visible(e)&&!e.closest('svg')&&!e.matches('.skip-link')).filter(e=>{const r=rect(e);return r.left < -1 || r.right > width+1;}).map(e=>e.tagName+'.'+e.className).slice(0,8);
+  const overflow=[...document.querySelectorAll('body *')].filter(e=>visible(e)&&!e.closest('svg')&&!e.matches('.skip-link')&&!e.closest('.water-reflection')).filter(e=>{const r=rect(e);return r.left < -1 || r.right > width+1;}).map(e=>e.tagName+'.'+e.className).slice(0,8);
   const clipped=[...document.querySelectorAll('h1,h2,h3,.button,.preference-button')].filter(e=>{const s=getComputedStyle(e);return visible(e)&&((['hidden','clip'].includes(s.overflowX)&&e.scrollWidth>e.clientWidth+2)||(['hidden','clip'].includes(s.overflowY)&&e.scrollHeight>e.clientHeight+2));}).map(e=>e.className||e.tagName);
   const controls=[...document.querySelectorAll('.brand,.header-tools,.menu-toggle,#navigation')].filter(visible).map(rect);
   const collisions=[];
@@ -29,9 +29,7 @@ async function audit(page,width) {
    const large=parseFloat(style.fontSize)>=24 || (parseFloat(style.fontSize)>=18.667 && parseInt(style.fontWeight)>=700);
    if(ratio<(large?3:4.5)-.02)contrast.push({element:el.className||el.tagName,ratio:Math.round(ratio*100)/100});
   }
-  const floating=rect(document.querySelector('.floating-wa'));
-  const floatingText=[...document.querySelectorAll('.hero h1,.hero-copy p,.hero .button,.section-heading h2,.section-heading .text-link')].filter(visible).filter(e=>{const range=document.createRange();range.selectNodeContents(e);return [...range.getClientRects()].some(r=>Math.min(floating.right,r.right)-Math.max(floating.left,r.left)>2&&Math.min(floating.bottom,r.bottom)-Math.max(floating.top,r.top)>2);}).map(e=>e.textContent.trim());
-  return {scrollWidth:document.documentElement.scrollWidth,overflow,clipped,collisions,contrast,floatingText,headerHeight:rect(document.querySelector('.site-header')).height,logoWidth:rect(document.querySelector('.brand')).width,heroSize:document.querySelector('.hero h1')?parseFloat(getComputedStyle(document.querySelector('.hero h1')).fontSize):null};
+  return {scrollWidth:document.documentElement.scrollWidth,overflow,clipped,collisions,contrast,headerHeight:rect(document.querySelector('.site-header')).height,logoWidth:rect(document.querySelector('.brand')).width,heroSize:document.querySelector('.hero h1')?parseFloat(getComputedStyle(document.querySelector('.hero h1')).fontSize):null};
  },width);
 }
 (async()=>{
@@ -49,14 +47,17 @@ async function audit(page,width) {
     check(view.scrollWidth<=width && !view.overflow.length,`Overflow ${lang}/${theme}/${width}/${name}: ${JSON.stringify(view.overflow)}`);
     check(!view.collisions.length,`Header overlap ${lang}/${width}`);
     check(!view.clipped.length,`Clipping ${lang}/${width}/${name}: ${view.clipped}`);
+    check(await page.locator('.floating-wa').count()===0,'No floating bubble');
+    if(lang==='ar')check(!/مسبح/.test(await page.locator('body').innerText()),'Approved Arabic terminology');
     check(!view.contrast.length,`Text contrast ${lang}/${theme}/${name}: ${JSON.stringify(view.contrast)}`);
     check(view.headerHeight<=(width>1000?88:78),`Header height ${view.headerHeight}`);
     check(await page.locator('.theme-toggle svg:visible').count()===1,'Single next-action theme icon');
     check((await page.locator('.language-toggle').innerText()).trim()===(lang==='ar'?'EN':'ع'),'Language label');
     for(const selector of ['.theme-toggle','.language-toggle']){const box=await page.locator(selector).boundingBox();check(box.width>=44&&box.height>=44,'44px touch target');}
     if(name==='index'){
-     check(!view.floatingText.length,'Floating WhatsApp overlaps homepage text: '+view.floatingText);
-     if(width===360){const rows=await page.locator('.hero .button').evaluateAll(es=>es.map(e=>e.getBoundingClientRect().top));check(Math.abs(rows[0]-rows[1])<1,'Hero actions share a row at 360px');}
+     check(await page.locator('main>section').evaluateAll(es=>es.map(e=>e.id).join(','))==='home,services,products,about,contact','Homepage section order');
+     check(await page.locator('.service-grid article').count()===3,'Three service cards');
+     check(await page.locator('.hero .button').count()===1,'One hero CTA');
      await page.screenshot({path:`${screenshotDir}/${lang}-${theme}-${width}.png`,fullPage:true});
      const image=page.locator('.hero-image img');check(await image.getAttribute('fetchpriority')==='high'&&await image.getAttribute('loading')!=='lazy','Hero load priority');
      check(await image.evaluate(e=>e.complete&&e.naturalWidth>0),'Hero loaded');
@@ -95,15 +96,14 @@ async function audit(page,width) {
    await page.locator('#product-search').fill('');await page.locator('#category-filter').selectOption(catalog[0].category);check(new URL(page.url()).searchParams.get('category')===catalog[0].category,'Category changes');
    await page.locator('.product-card').first().click();await settle(page);const id=new URL(page.url()).searchParams.get('product');check(id&&await page.locator('.detail-copy h1').count()===1,'Product details open');
    await page.locator('.language-toggle').click();await settle(page);check(new URL(page.url()).searchParams.get('product')===id,'Product ID preserved');
-   check(await page.locator('.detail-copy a.whatsapp').getAttribute('href').then(v=>v.includes('201034031505')),'Product WhatsApp');
-   await page.locator('.menu-toggle').click();await page.locator('#navigation>a[href$="services.html"]').click();await settle(page);check(await page.locator('.service-grid article').count()===3,'Menu navigation');
+   check(await page.locator('.contact-band a.whatsapp').getAttribute('href').then(v=>v.includes('201034031505')),'Product WhatsApp');
+   await page.locator('.menu-toggle').click();await page.locator('#navigation>a[href$="services.html"]').click();await settle(page);check(await page.locator('.service-details article').count()===3,'Menu navigation');
    await page.setViewportSize({width:1440,height:1000});await page.setViewportSize({width:390,height:844});check(!await page.locator('#navigation').isVisible(),'Menu resets on resize');
    await page.goto(app.base+'/'+prefix+'contact.html');await settle(page);await page.locator('.contact-details .whatsapp').focus();await page.keyboard.press('Tab');await page.keyboard.press('Shift+Tab');
    await page.waitForFunction(()=>getComputedStyle(document.querySelector('.contact-details .whatsapp')).backgroundColor==='rgb(37, 211, 102)');
    const focus=await page.locator('.contact-details .whatsapp').evaluate(e=>({visible:e.matches(':focus-visible'),outline:getComputedStyle(e).outlineStyle,background:getComputedStyle(e).backgroundColor}));
    check(focus.visible&&focus.outline==='solid'&&focus.background==='rgb(37, 211, 102)','Keyboard focus and WhatsApp green: '+JSON.stringify(focus));
-   // Scroll final contact links clear of the floating action at the end of the document.
-   await page.locator('.copyright').scrollIntoViewIfNeeded();const wa=await page.locator('.floating-wa').boundingBox(),copyright=await page.locator('.copyright').boundingBox();check(copyright.y+copyright.height<=wa.y || copyright.x>=wa.x+wa.width,'Footer clear of floating WhatsApp');
+   check(await page.locator('.floating-wa').count()===0,'No floating WhatsApp');
    await page.close();report.checks.push(`Full catalog, keyboard and contact journey: ${lang}`);
   }
   // The saved theme is already applied before the first visible content frame.
@@ -116,7 +116,7 @@ async function audit(page,width) {
    check(Math.abs(sizes[2]-sizes[0])<.1&&Math.abs(sizes[5]-sizes[3])<.1,'Continuous hero type at old 400/700px boundaries');await page.close();
   }
   check(!report.errors.length,'Browser console/network errors: '+report.errors.join('\n'));
-  report.checks.push('Saved theme before first content frame','Continuous hero type around 400px and 700px','No console/page/network errors','Sampled text contrast meets WCAG AA','Homepage floating contact clear of text at all target widths');
+  report.checks.push('Saved theme before first content frame','Continuous hero type around 400px and 700px','No console/page/network errors','Sampled text contrast meets WCAG AA','Single content WhatsApp CTA and no floating bubble');
   report.passed=true;
  }catch(error){report.passed=false;report.failure=error.stack;throw error;}
  finally{fs.writeFileSync('qa/results/verification.json',JSON.stringify(report,null,2));await app.close();}

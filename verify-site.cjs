@@ -21,9 +21,13 @@ for (const prefix of ['', 'en-']) {
     assert(html.includes('data-dark-label=') && html.includes('data-light-label='),`${path}: accessible theme actions`);
     if(name==='index') {
       const hero = html.match(/<figure class="hero-image">([\s\S]*?)<\/figure>/)?.[1];
-      assert(hero?.includes('assets/pool-hero.jpg') && hero.includes('fetchpriority="high"') && hero.includes('srcset='),`${path}: responsive priority hero image`);
+      assert(hero?.includes('assets/pool-wide.jpg') && hero.includes('fetchpriority="high"') && hero.includes('srcset='),`${path}: responsive priority hero image`);
       assert(!hero.includes('loading="lazy"') && !hero.includes('figcaption'),`${path}: calm hero presentation`);
     }
+    assert(!html.includes('floating-wa'), `${path}: no floating WhatsApp`);
+    assert(html.includes('rel="canonical" href="https://axisblue.vercel.app/'), `${path}: production canonical`);
+    assert(html.includes('content="https://axisblue.vercel.app/assets/og-axis-blue.png"'), `${path}: absolute social image`);
+    assert(!/مسبح/.test(html), `${path}: approved Arabic vocabulary`);
     assert(html.includes('og:description') && html.includes('name="description"'),`${path}: SEO metadata`);
     assert(!/[←↗↖↙→]/.test(html),`${path}: unwanted arrows`);
     assert(!html.includes('اسأل عن هذا المنتج'),`${path}: old product CTA`);

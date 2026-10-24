@@ -1,5 +1,12 @@
 # Image sources
 
+## Current wide hero, About and social image
+
+- The wide image uses a top crop (1800 × 1100) of the retained real photograph by Thom Milkovic below. The ladder remains on the left; no equipment was fabricated or added to the scene.
+- Local assets: `pool-wide.jpg` and `pool-wide-1100.jpg`. Cropping and responsive compression only; no product image colors or source product files were changed.
+- Social image: `og-axis-blue.png`, 1200 × 630. Native HTML composition using the same pool photograph, supplied logo and local Zain font; source layout: `qa/og-card.html`.
+- License: https://unsplash.com/license. Photo page: https://unsplash.com/photos/blue-swimming-pool-vy_cVJCAVG0
+
 ## Hero pool photograph
 
 - Photographer: Thom Milkovic.

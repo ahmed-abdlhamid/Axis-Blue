@@ -19,6 +19,8 @@ Open `index.html` in your browser. For a local HTTP preview, run a static HTTP s
 - `assets/logo-dark-web.png`: transparent, high-contrast logo variant used in dark mode.
 - `assets/favicon.png`: supplied logo's wave emblem centered on a square favicon.
 - `assets/pool-hero.jpg`, `assets/pool-hero-900.jpg`: locally stored licensed pool photograph and responsive version; attribution and license are in `assets/IMAGE_SOURCES.md`.
+- `assets/pool-wide.jpg`, `assets/pool-wide-1100.jpg`: wide crop of that real photo used by the current full-bleed hero and About sections.
+- `assets/og-axis-blue.png`: 1200 × 630 Arabic social-sharing composition; source layout in `qa/og-card.html`.
 - `assets/fonts/`: supplied Zain font files and OFL license. Regular, Bold and ExtraBold are used for both languages.
 - `assets/products/`: 429 local product images covering 435 products.
 - `catalog.json`: product names, codes, categories, technical attributes and original reference/image URLs.
@@ -52,7 +54,7 @@ Manual source-refresh scripts: `import-catalog.py`, `import-specifications.py`, 
 ## Verification, 2026-10-24
 
 - JavaScript syntax checks passed for the generator, runtime scripts and catalog data.
-- Static checks passed for 12 pages, 322 local asset/link references, Arabic/English language and direction, metadata, branding, Facebook and phone/WhatsApp URLs.
+- Static checks passed for 12 pages, 358 local asset/link references, Arabic/English language and direction, metadata, branding, Facebook and phone/WhatsApp URLs.
 - All 435 product IDs are unique; all 12 categories contain products. All 429 product images passed image decoding checks.
 - Browser checks via localhost covered the 12 pages in both languages, desktop and mobile, light and dark modes. No horizontal overflow or browser warnings/errors were observed in those checks.
 - Verified category selection, search by product code, empty search results, pagination, clicking a card to open details, language switching while preserving product/category selection, theme persistence across pages, mobile menu navigation and Escape-key closure.
@@ -62,13 +64,13 @@ Manual source-refresh scripts: `import-catalog.py`, `import-specifications.py`, 
 
 ## Before launch
 
-Confirm the actual product range, technical details and image reuse rights. Approve business/service descriptions and the illustrative pool photo. Supply a verified map pin if required. Once a public domain is chosen, use absolute social image URLs and add canonical URLs. Product metadata is updated by browser JavaScript; social crawlers that do not execute JavaScript see the generic product-details metadata.
+Confirm the actual product range, technical details and product-image reuse rights. Supply a verified map pin if required. Canonical and social URLs use `https://axisblue.vercel.app/`. Product-specific metadata is updated by browser JavaScript; social crawlers that do not execute JavaScript see the generic product-details metadata and the shared branded OG image.
 
 Publish only the HTML pages, CSS, browser JavaScript and used assets; maintenance scripts, reference HTML and review screenshots are not required on the public host.
 
 ## UI review and browser checks
 
-The shared layout uses a fluid Zain type scale, an 84px desktop header, a 72px mobile header, independent 44px language/theme action buttons, and the latest owner-supplied transparent logo assets. The selected theme is initialized in the document head; only the icon for the next theme action is displayed. Narrow navigation includes the call and WhatsApp shortcuts.
+The shared layout uses fluid Zain typography, compact 44px controls and the owner-supplied transparent logo assets. The selected theme is initialized in the document head. Navigation uses only a current-page underline and temporary hover underline. The homepage order is hero, services, products, About, contact. The shared contact card is the sole in-content WhatsApp CTA; the floating bubble was removed. On the Contact page, the WhatsApp contact method takes the place of that card. Product details route their shared card to a product-specific inquiry.
 
 See `qa/REVIEW.md` for this UI pass, screenshot comparisons, tested viewports, and remaining limitations. `qa/results/` contains local review artifacts and is ignored by Git.
 
