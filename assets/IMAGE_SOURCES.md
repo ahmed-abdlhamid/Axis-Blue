@@ -4,7 +4,7 @@
 
 - Real pool photograph from Unsplash: https://images.unsplash.com/photo-1575429198097-0414ec08e8cd
 - License: https://unsplash.com/license (commercial website use permitted; checked 2026-10-24).
-- Local files: `hero-blue-water.jpg` (2200 × 1017) and `hero-blue-water-1100.jpg`. Cropped out excess sky to emphasize the pool and blue water, then compressed locally. No generated elements or color filters.
+- Local files: `hero-blue-water.jpg` (1600 × 650) and `hero-blue-water-1100.jpg`. The 2026-10-25 revision crops inward from the retained 2200 × 1017 image (left 450px, top 150px), reducing the railing and foreground deck so the pool water occupies more of the hero. Responsive compression only; no generated elements or color filters.
 - Used only for the homepage hero in both languages, as an illustrative pool photograph rather than an AXIS Blue project.
 
 ## Retained About and social image

@@ -59,7 +59,7 @@ Manual source-refresh scripts: `import-catalog.py`, `import-specifications.py`, 
 - All 435 product IDs are unique; all 12 categories contain products. All 429 product images passed image decoding checks.
 - Browser checks via localhost covered the 12 pages in both languages, desktop and mobile, light and dark modes. No horizontal overflow or browser warnings/errors were observed in those checks.
 - Verified category selection, search by product code, empty search results, pagination, clicking a card to open details, language switching while preserving product/category selection, theme persistence across pages, mobile menu navigation and Escape-key closure.
-- WhatsApp icons stay green; hover and keyboard-focus backgrounds use the theme's blue palette. Keyboard focus and icon color were verified in the browser.
+- Contact icons have transparent neutral circular outlines and neutral symbols adapted to each theme. Hover changes the phone/Facebook symbols and contact labels to the site's hover blue; WhatsApp's symbol becomes green. Rings remain neutral, without new hover backgrounds, shadows or movement. Keyboard focus retains its separate visible outline.
 - Calls and WhatsApp messages were not sent.
 - Automated direct `file://` browsing was blocked by the browser's URL policy, so direct-file behavior remains unverified in-browser. Local targets were checked statically; interactive checks used localhost.
 
@@ -71,7 +71,7 @@ Publish only the HTML pages, CSS, browser JavaScript and used assets; maintenanc
 
 ## UI review and browser checks
 
-The header uses balanced side tracks with centered desktop navigation. Up to 600px, the logo/menu and the four utility controls occupy two intentional rows; all controls remain visible with 44px tap targets. Contact marks are shared 24px filled-circle SVGs with white symbols. The footer uses equal outer columns around centered vertical page links, stacking its groups up to 800px. The Contact page has a single Facebook label.
+The header uses balanced side tracks with centered desktop navigation. Up to 600px, the logo/menu and the four utility controls occupy two intentional rows; all controls remain visible with 44px tap targets. Moving from navigation toward the outer edge, controls read phone, WhatsApp, language, theme in both language directions. Phone and WhatsApp have no square containers. Shared contact marks are 28px neutral outlined-circle SVGs with transparent interiors. The footer description has a fluid 340px maximum width; its groups stack up to 800px. The Contact page has unified interactive contact rows and a single Facebook label. Service details are centered within 960px with a 760px reading area; the product notice is limited to 820px.
 
 The shared layout uses fluid Zain typography, compact 44px controls and the owner-supplied transparent logo assets. The selected theme is initialized in the document head. Navigation uses only a current-page underline and temporary hover underline. The homepage order is hero, services, products, About, contact. The shared contact card is the sole in-content WhatsApp CTA; the floating bubble was removed. On the Contact page, the WhatsApp contact method takes the place of that card. Product details route their shared card to a product-specific inquiry.
 

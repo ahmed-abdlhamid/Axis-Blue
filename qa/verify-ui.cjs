@@ -7,7 +7,7 @@ const journeysOnly = process.argv.includes('--journeys-only');
 const report = journeysOnly ? JSON.parse(fs.readFileSync('qa/results/verification.json','utf8')) : {widths,views:[],checks:[],errors:[]};
 if(journeysOnly){report.checks=[];report.errors=[];delete report.failure;}
 const pages = ['index','products','services','about','contact','product','catalog'];
-const screenshotDir='qa/results/icons-layout';
+const screenshotDir='qa/results/outline-update';
 function check(condition,message) {if(!condition) throw new Error(message);}
 async function settle(page) {await page.waitForLoadState('networkidle');await page.evaluate(()=>document.fonts.ready);await page.locator('img[loading=lazy]').evaluateAll(es=>es.forEach(e=>e.loading='eager'));await page.evaluate(()=>Promise.all([...document.images].map(i=>i.decode().catch(()=>{}))));}
 async function audit(page,width) {
@@ -100,9 +100,9 @@ async function audit(page,width) {
    await page.locator('.menu-toggle').click();await page.locator('#navigation>a[href$="services.html"]').click();await settle(page);check(await page.locator('.service-details article').count()===3,'Menu navigation');
    await page.setViewportSize({width:1440,height:1000});await page.setViewportSize({width:390,height:844});check(!await page.locator('#navigation').isVisible(),'Menu resets on resize');
    await page.goto(app.base+'/'+prefix+'contact.html');await settle(page);await page.locator('.contact-details .whatsapp').focus();await page.keyboard.press('Tab');await page.keyboard.press('Shift+Tab');
-   await page.waitForFunction(()=>getComputedStyle(document.querySelector('.contact-details .whatsapp')).backgroundColor==='rgb(228, 241, 255)');
-   const focus=await page.locator('.contact-details .whatsapp').evaluate(e=>({visible:e.matches(':focus-visible'),outline:getComputedStyle(e).outlineStyle,background:getComputedStyle(e).backgroundColor}));
-   check(focus.visible&&focus.outline==='solid'&&focus.background==='rgb(228, 241, 255)','Keyboard focus and WhatsApp blue treatment: '+JSON.stringify(focus));
+   await page.waitForFunction(()=>getComputedStyle(document.querySelector('.contact-details .whatsapp .contact-symbol')).color==='rgb(37, 211, 102)');
+   const focus=await page.locator('.contact-details .whatsapp').evaluate(e=>({visible:e.matches(':focus-visible'),outline:getComputedStyle(e).outlineStyle,background:getComputedStyle(e).backgroundColor,symbol:getComputedStyle(e.querySelector('.contact-symbol')).color}));
+   check(focus.visible&&focus.outline==='solid'&&focus.background==='rgba(0, 0, 0, 0)'&&focus.symbol==='rgb(37, 211, 102)','Keyboard focus, transparent row and green WhatsApp symbol: '+JSON.stringify(focus));
    check(await page.locator('.floating-wa').count()===0,'No floating WhatsApp');
    await page.close();report.checks.push(`Full catalog, keyboard and contact journey: ${lang}`);
   }
