@@ -19,7 +19,8 @@ Open `index.html` in your browser. For a local HTTP preview, run a static HTTP s
 - `assets/logo-dark-web.png`: transparent, high-contrast logo variant used in dark mode.
 - `assets/favicon.png`: supplied logo's wave emblem centered on a square favicon.
 - `assets/pool-hero.jpg`, `assets/pool-hero-900.jpg`: locally stored licensed pool photograph and responsive version; attribution and license are in `assets/IMAGE_SOURCES.md`.
-- `assets/pool-wide.jpg`, `assets/pool-wide-1100.jpg`: wide crop of that real photo used by the current full-bleed hero and About sections.
+- `assets/pool-wide.jpg`, `assets/pool-wide-1100.jpg`: retained wide crop used by the approved About sections.
+- `assets/hero-blue-water.jpg`, `assets/hero-blue-water-1100.jpg`: current full-width hero photo with a generous view of the blue pool water; source and license in `assets/IMAGE_SOURCES.md`.
 - `assets/og-axis-blue.png`: 1200 × 630 Arabic social-sharing composition; source layout in `qa/og-card.html`.
 - `assets/fonts/`: supplied Zain font files and OFL license. Regular, Bold and ExtraBold are used for both languages.
 - `assets/products/`: 429 local product images covering 435 products.
@@ -58,7 +59,7 @@ Manual source-refresh scripts: `import-catalog.py`, `import-specifications.py`, 
 - All 435 product IDs are unique; all 12 categories contain products. All 429 product images passed image decoding checks.
 - Browser checks via localhost covered the 12 pages in both languages, desktop and mobile, light and dark modes. No horizontal overflow or browser warnings/errors were observed in those checks.
 - Verified category selection, search by product code, empty search results, pagination, clicking a card to open details, language switching while preserving product/category selection, theme persistence across pages, mobile menu navigation and Escape-key closure.
-- WhatsApp interaction styling was verified through keyboard focus: computed background `rgb(37, 211, 102)` (`#25D366`).
+- WhatsApp icons stay green; hover and keyboard-focus backgrounds use the theme's blue palette. Keyboard focus and icon color were verified in the browser.
 - Calls and WhatsApp messages were not sent.
 - Automated direct `file://` browsing was blocked by the browser's URL policy, so direct-file behavior remains unverified in-browser. Local targets were checked statically; interactive checks used localhost.
 
@@ -69,6 +70,8 @@ Confirm the actual product range, technical details and product-image reuse righ
 Publish only the HTML pages, CSS, browser JavaScript and used assets; maintenance scripts, reference HTML and review screenshots are not required on the public host.
 
 ## UI review and browser checks
+
+The header uses balanced side tracks with centered desktop navigation. Up to 600px, the logo/menu and the four utility controls occupy two intentional rows; all controls remain visible with 44px tap targets. Contact marks are shared 24px filled-circle SVGs with white symbols. The footer uses equal outer columns around centered vertical page links, stacking its groups up to 800px. The Contact page has a single Facebook label.
 
 The shared layout uses fluid Zain typography, compact 44px controls and the owner-supplied transparent logo assets. The selected theme is initialized in the document head. Navigation uses only a current-page underline and temporary hover underline. The homepage order is hero, services, products, About, contact. The shared contact card is the sole in-content WhatsApp CTA; the floating bubble was removed. On the Contact page, the WhatsApp contact method takes the place of that card. Product details route their shared card to a product-specific inquiry.
 

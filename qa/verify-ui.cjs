@@ -7,7 +7,7 @@ const journeysOnly = process.argv.includes('--journeys-only');
 const report = journeysOnly ? JSON.parse(fs.readFileSync('qa/results/verification.json','utf8')) : {widths,views:[],checks:[],errors:[]};
 if(journeysOnly){report.checks=[];report.errors=[];delete report.failure;}
 const pages = ['index','products','services','about','contact','product','catalog'];
-const screenshotDir='qa/results/content-update';
+const screenshotDir='qa/results/icons-layout';
 function check(condition,message) {if(!condition) throw new Error(message);}
 async function settle(page) {await page.waitForLoadState('networkidle');await page.evaluate(()=>document.fonts.ready);await page.locator('img[loading=lazy]').evaluateAll(es=>es.forEach(e=>e.loading='eager'));await page.evaluate(()=>Promise.all([...document.images].map(i=>i.decode().catch(()=>{}))));}
 async function audit(page,width) {
@@ -50,7 +50,7 @@ async function audit(page,width) {
     check(await page.locator('.floating-wa').count()===0,'No floating bubble');
     if(lang==='ar')check(!/مسبح/.test(await page.locator('body').innerText()),'Approved Arabic terminology');
     check(!view.contrast.length,`Text contrast ${lang}/${theme}/${name}: ${JSON.stringify(view.contrast)}`);
-    check(view.headerHeight<=(width>1000?88:78),`Header height ${view.headerHeight}`);
+    check(view.headerHeight<=(width>1000?88:width>600?78:126),`Header height ${view.headerHeight}`);
     check(await page.locator('.theme-toggle svg:visible').count()===1,'Single next-action theme icon');
     check((await page.locator('.language-toggle').innerText()).trim()===(lang==='ar'?'EN':'ع'),'Language label');
     for(const selector of ['.theme-toggle','.language-toggle']){const box=await page.locator(selector).boundingBox();check(box.width>=44&&box.height>=44,'44px touch target');}
@@ -66,8 +66,8 @@ async function audit(page,width) {
    // Test mobile menu for every narrow width, in both languages and themes.
    if(width<=1000){
     await page.locator('.menu-toggle').click();check(await page.locator('#navigation').isVisible(),'Menu opens');
-    check(await page.locator('.nav-contact a[href^="tel:"]').isVisible(),'Mobile call shortcut');
-    check(await page.locator('.nav-contact a.whatsapp').isVisible(),'Mobile WhatsApp shortcut');
+    check(await page.locator('.header-contact a[href^="tel:"]').isVisible(),'Mobile call shortcut');
+    check(await page.locator('.header-contact a.whatsapp').isVisible(),'Mobile WhatsApp shortcut');
     if(width===390)await page.screenshot({path:`${screenshotDir}/${lang}-${theme}-menu.png`});
     const openAudit=await audit(page,width);check(!openAudit.overflow.length&&!openAudit.collisions.length,'Expanded menu geometry');
     await page.keyboard.press('Escape');check(!await page.locator('#navigation').isVisible(),'Escape closes menu');
@@ -100,9 +100,9 @@ async function audit(page,width) {
    await page.locator('.menu-toggle').click();await page.locator('#navigation>a[href$="services.html"]').click();await settle(page);check(await page.locator('.service-details article').count()===3,'Menu navigation');
    await page.setViewportSize({width:1440,height:1000});await page.setViewportSize({width:390,height:844});check(!await page.locator('#navigation').isVisible(),'Menu resets on resize');
    await page.goto(app.base+'/'+prefix+'contact.html');await settle(page);await page.locator('.contact-details .whatsapp').focus();await page.keyboard.press('Tab');await page.keyboard.press('Shift+Tab');
-   await page.waitForFunction(()=>getComputedStyle(document.querySelector('.contact-details .whatsapp')).backgroundColor==='rgb(37, 211, 102)');
+   await page.waitForFunction(()=>getComputedStyle(document.querySelector('.contact-details .whatsapp')).backgroundColor==='rgb(228, 241, 255)');
    const focus=await page.locator('.contact-details .whatsapp').evaluate(e=>({visible:e.matches(':focus-visible'),outline:getComputedStyle(e).outlineStyle,background:getComputedStyle(e).backgroundColor}));
-   check(focus.visible&&focus.outline==='solid'&&focus.background==='rgb(37, 211, 102)','Keyboard focus and WhatsApp green: '+JSON.stringify(focus));
+   check(focus.visible&&focus.outline==='solid'&&focus.background==='rgb(228, 241, 255)','Keyboard focus and WhatsApp blue treatment: '+JSON.stringify(focus));
    check(await page.locator('.floating-wa').count()===0,'No floating WhatsApp');
    await page.close();report.checks.push(`Full catalog, keyboard and contact journey: ${lang}`);
   }
