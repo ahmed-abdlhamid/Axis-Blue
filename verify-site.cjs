@@ -16,6 +16,14 @@ for (const prefix of ['', 'en-']) {
       checkedLinks++;
     }
     assert(html.includes('assets/logo-web.png') && html.includes('assets/favicon.png'),`${path}: brand assets`);
+    assert(html.includes('assets/logo-dark-web.png'),`${path}: transparent dark logo`);
+    assert(!html.includes('role="switch"') && !html.includes('aria-checked='),`${path}: action buttons replace switches`);
+    assert(html.includes('data-dark-label=') && html.includes('data-light-label='),`${path}: accessible theme actions`);
+    if(name==='index') {
+      const hero = html.match(/<figure class="hero-image">([\s\S]*?)<\/figure>/)?.[1];
+      assert(hero?.includes('assets/pool-hero.jpg') && hero.includes('fetchpriority="high"') && hero.includes('srcset='),`${path}: responsive priority hero image`);
+      assert(!hero.includes('loading="lazy"') && !hero.includes('figcaption'),`${path}: calm hero presentation`);
+    }
     assert(html.includes('og:description') && html.includes('name="description"'),`${path}: SEO metadata`);
     assert(!/[←↗↖↙→]/.test(html),`${path}: unwanted arrows`);
     assert(!html.includes('اسأل عن هذا المنتج'),`${path}: old product CTA`);

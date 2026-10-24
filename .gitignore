@@ -1,4 +1,5 @@
 # Local visual QA captures
+qa/results/
 assets/preview-*.png
 assets/logo-dark-preview.png
 logo.jpeg

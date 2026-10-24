@@ -27,11 +27,13 @@ document.addEventListener('keydown', event => {
 document.addEventListener('click', event => {
   if (!event.target.closest('.header-inner')) closeMenu();
 });
-matchMedia('(min-width: 951px)').addEventListener('change', closeMenu);
+matchMedia('(min-width: 1001px)').addEventListener('change', closeMenu);
 
 const themeSwitch = document.querySelector('.theme-toggle');
 function reflectTheme() {
-  themeSwitch.setAttribute('aria-checked', String(root.dataset.theme === 'dark'));
+  const label = root.dataset.theme === 'dark' ? themeSwitch.dataset.lightLabel : themeSwitch.dataset.darkLabel;
+  themeSwitch.setAttribute('aria-label', label);
+  themeSwitch.title = label;
   document.querySelector('meta[name="theme-color"]').content = root.dataset.theme === 'dark' ? '#101d2d' : '#2F5278';
 }
 reflectTheme();

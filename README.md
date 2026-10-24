@@ -15,9 +15,10 @@ Open `index.html` in your browser. For a local HTTP preview, run a static HTTP s
 - `preferences.js`: theme initialization before first paint.
 - `script.js`: mobile navigation, theme/language controls, catalog filtering, search, pagination and product details.
 - `assets/logo.png`: original new logo supplied by the owner, unchanged.
-- `assets/logo-web.png`: same logo with surrounding white margins trimmed for the header/footer.
+- `assets/logo-web.png`: latest supplied logo with surrounding margins and white matte removed for the header/footer.
 - `assets/logo-dark-web.png`: transparent, high-contrast logo variant used in dark mode.
 - `assets/favicon.png`: supplied logo's wave emblem centered on a square favicon.
+- `assets/pool-hero.jpg`, `assets/pool-hero-900.jpg`: locally stored licensed pool photograph and responsive version; attribution and license are in `assets/IMAGE_SOURCES.md`.
 - `assets/fonts/`: supplied Zain font files and OFL license. Regular, Bold and ExtraBold are used for both languages.
 - `assets/products/`: 429 local product images covering 435 products.
 - `catalog.json`: product names, codes, categories, technical attributes and original reference/image URLs.
@@ -65,4 +66,20 @@ Confirm the actual product range, technical details and image reuse rights. Appr
 
 Publish only the HTML pages, CSS, browser JavaScript and used assets; maintenance scripts, reference HTML and review screenshots are not required on the public host.
 
-No packages were installed. No commits, pushes or deployment were performed.
+## UI review and browser checks
+
+The shared layout uses a fluid Zain type scale, an 84px desktop header, a 72px mobile header, independent 44px language/theme action buttons, and the latest owner-supplied transparent logo assets. The selected theme is initialized in the document head; only the icon for the next theme action is displayed. Narrow navigation includes the call and WhatsApp shortcuts.
+
+See `qa/REVIEW.md` for this UI pass, screenshot comparisons, tested viewports, and remaining limitations. `qa/results/` contains local review artifacts and is ignored by Git.
+
+Browser checks use an existing Node Playwright installation and installed Google Chrome, with no packages or browsers installed by this task. With the existing Playwright and Sharp packages available through Node's module search path:
+
+```powershell
+node qa/verify-ui.cjs
+node qa/compose-review.cjs
+node verify-site.cjs
+```
+
+`qa/capture-before.cjs` records a baseline before making visual changes; do not rerun it over the retained before images. `qa/prepare-brand.cjs` prepares the supplied logo assets from an explicit source PNG path. These are development tools and are not needed to serve the site.
+
+This UI pass made no commits, pushes, branch changes or deployments.
