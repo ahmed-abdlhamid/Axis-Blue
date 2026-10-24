@@ -229,7 +229,7 @@ input::placeholder{color:var(--muted);opacity:1}
 .contact-symbol{color:var(--contact-neutral);transition:color .18s}
 a:is(:hover,:focus-visible) .contact-symbol{color:var(--link)}
 a.whatsapp:is(:hover,:focus-visible) .contact-symbol{color:var(--green)}
-.header-contact .icon-button{border:0;border-radius:50%;background:transparent;box-shadow:none}
+.header-contact .icon-button{border:0;border-radius:0;background:transparent;box-shadow:none}
 .header-contact .icon-button:is(:hover,:focus-visible){background:transparent;box-shadow:none}
 .contact-links a,.social-link,.contact-action{transition:color .18s}
 .contact-links a:is(:hover,:focus-visible),.social-link:is(:hover,:focus-visible),.contact-action:is(:hover,:focus-visible){color:var(--link);background:transparent;box-shadow:none;text-decoration:none;transform:none}
@@ -274,7 +274,7 @@ html[lang="en"] .hero h1{font-size:clamp(34px,calc(27px + 1.8vw),50px);line-heig
 .home-about h2{max-width:25ch}
 .contact-band h2{max-width:38ch}
 .address-card{align-self:start}
-.site-footer{grid-template-columns:minmax(0,1fr) 160px minmax(0,1fr);column-gap:clamp(24px,4vw,64px);align-items:start}
+.site-footer{grid-template-columns:minmax(0,340px) max-content fit-content(440px);justify-content:space-between;column-gap:32px;align-items:start}
 .footer-identity>p{max-width:340px}
 .site-footer nav{grid-template-columns:1fr;justify-items:start;justify-self:center}
 .footer-contact .contact-links{display:flex;flex-direction:column;align-items:start;gap:0;margin-top:12px}
@@ -283,6 +283,8 @@ html[lang="en"] .hero h1{font-size:clamp(34px,calc(27px + 1.8vw),50px);line-heig
 .footer-address .contact-icon{margin-top:4px}
 .contact-icon{width:28px;height:28px;flex-shrink:0}
 .icon-button .contact-icon,.contact-details h2 .contact-icon{width:28px;height:28px}
+.header-contact .contact-frameless{width:36px;height:36px}
+.site-footer .contact-frameless{width:28px;height:28px}
 .address-title{display:flex;align-items:flex-start;gap:10px}
 .address-title .contact-icon{margin-top:5px}
 .facebook-contact .social-link{font-size:22px;line-height:1.4}
