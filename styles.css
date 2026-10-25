@@ -38,7 +38,7 @@ p{color:var(--muted)}
 .header-inner{display:grid;width:min(1320px,calc(100% - 48px));grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center;gap:24px;min-height:84px}
 .brand{justify-self:start}
 .header-tools{justify-self:end}
-.brand{width:180px;flex-shrink:0}
+.brand{width:160px;flex-shrink:0}
 .brand picture,.footer-brand picture{display:block}
 .brand img,.footer-brand img{width:100%;height:auto}
 :root:not([data-theme="dark"]) .logo-dark,:root[data-theme="dark"] .logo-light{display:none}
@@ -109,7 +109,7 @@ html[lang="en"] .hero-copy>p:not(.intro-label){line-height:1.65}
 .contact-band h2{font-size:clamp(26px,calc(23px + .5vw),30px)}
 .contact-band .button{flex-shrink:0}
 .site-footer{display:grid;grid-template-columns:1fr 1.25fr .75fr;gap:32px;padding-block:32px 24px;border-top:1px solid var(--line);font-size:17px}
-.footer-brand{display:block;width:180px;margin-bottom:16px}
+.footer-brand{display:block;width:160px;margin-bottom:16px}
 .social-link{display:inline-flex;align-items:center;gap:8px;font-weight:700;font-size:17px;min-height:44px;transition:color .18s}
 .facebook:hover{color:var(--link)}
 .site-footer nav{display:grid;grid-template-columns:1fr 1fr;align-content:start;gap:8px 16px}
@@ -168,12 +168,12 @@ input::placeholder{color:var(--muted);opacity:1}
 :focus-visible{outline:3px solid var(--blue);outline-offset:4px}
 [data-theme="dark"] :focus-visible{outline-color:#9ed1ff}
 @media(max-width:1150px){
- .header-inner{gap:16px}.brand{width:170px}.header-inner nav>a{padding-inline:10px;font-size:17px}.header-tools{gap:10px}.header-contact{padding-inline-start:10px}
+ .header-inner{gap:16px}.brand{width:152px}.header-inner nav>a{padding-inline:10px;font-size:17px}.header-tools{gap:10px}.header-contact{padding-inline-start:10px}
  .hero{gap:32px}.home-products{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
 @media(max-width:1000px){
  .header-inner{grid-template-columns:auto 1fr 44px;min-height:76px;padding-block:12px;gap:8px 16px}
- .brand{grid-column:1;grid-row:1;width:160px}.header-tools{grid-column:2;grid-row:1;justify-self:end}
+ .brand{grid-column:1;grid-row:1;width:144px}.header-tools{grid-column:2;grid-row:1;justify-self:end}
  .menu-toggle{display:grid;grid-column:3;grid-row:1}
  .header-inner nav{grid-column:1/-1;grid-row:2;flex-direction:column;align-items:stretch;gap:4px;padding-top:8px}
  .js .header-inner nav{display:none}.js .header-inner nav.is-open{display:flex}
@@ -198,7 +198,7 @@ input::placeholder{color:var(--muted);opacity:1}
  .header-tools{grid-column:1/-1;grid-row:2;justify-self:end}
  .menu-toggle{grid-column:2;justify-self:end}
  .header-inner nav{grid-row:3}
- .brand{width:140px}.preferences{gap:8px}
+ .brand{width:126px}.preferences{gap:8px}
  .hero-image{aspect-ratio:16/10;object-position:50% 20%}
  .hero .button{font-size:17px;padding-inline:14px}
  .hero-note{margin-top:18px}
@@ -214,7 +214,7 @@ input::placeholder{color:var(--muted);opacity:1}
  .contact-band{margin-block:32px;padding:24px;gap:20px}
  .site-footer{grid-template-columns:1fr;gap:24px;padding-bottom:88px}
  .site-footer nav{grid-column:auto;gap:8px 20px}.copyright{grid-column:auto}
- .footer-brand{width:160px}
+ .footer-brand{width:144px}
  .page-intro{padding-block:22px 26px}
  .address-card{padding:24px}.contact-layout{padding-bottom:32px}
  .catalog-note{padding:14px 16px}.catalog-tools{grid-template-columns:1fr}
@@ -283,7 +283,7 @@ html[lang="en"] .hero h1{font-size:clamp(34px,calc(27px + 1.8vw),50px);line-heig
 .footer-contact .social-link{margin-top:8px}
 .copyright{display:flex;align-items:center;justify-content:flex-start;gap:16px;flex-wrap:wrap}
 .copyright p{font-size:15px}
-.copyright-brand{display:block;width:78px;flex-shrink:0}
+.copyright-brand{display:block;width:70px;flex-shrink:0}
 .copyright-brand picture{display:block}
 .copyright-brand img{width:100%;height:auto}
 @media(max-width:1000px){
@@ -316,7 +316,7 @@ html[lang="en"] .hero h1{font-size:clamp(34px,calc(27px + 1.8vw),50px);line-heig
  .site-footer{grid-template-columns:1fr;padding-bottom:28px}
  .footer-identity,.site-footer nav{grid-column:auto}
  .copyright{flex-wrap:nowrap;gap:10px}
- .copyright-brand{width:64px}
+ .copyright-brand{width:58px}
  .copyright p{font-size:14px;line-height:1.6}
 }
 @media(prefers-reduced-motion:reduce){.water-reflection{animation:none;display:none}}
@@ -339,7 +339,32 @@ svg.service-icon{width:32px;height:32px;color:var(--icon-ink)}
 .service-symbol{width:56px;height:56px;border-radius:16px;background:var(--icon-tint);margin-bottom:18px}
 .service-detail{grid-template-columns:56px minmax(0,1fr)}
 .icon-button svg.ico{width:26px;height:26px}
-.header-contact .icon-button{color:var(--link)}
-.header-contact .icon-button:is(:hover,:focus-visible){color:var(--ink)}
 .contact-details h2 svg.ico{width:26px;height:26px}
 @media(max-width:600px){.service-detail{grid-template-columns:1fr}}
+
+/* ===== AXIS header v2: one control language + teal hover =====
+   Every header control (phone, WhatsApp, language, theme, menu) is the same 44px rounded square.
+   Hover/focus uses a water-teal that is NOT the brand blue, so it reads as a clear state change. */
+:root{--hover-accent:#0A7580;--hover-tint:#e3f6f7}
+:root[data-theme="dark"]{--hover-accent:#5FD9E2;--hover-tint:#17404a}
+
+.preference-button,.icon-button,.menu-toggle,
+.header-contact .icon-button{width:44px;height:44px;border:1px solid var(--control-line);border-radius:10px;background:var(--panel);color:var(--ink);box-shadow:none}
+.icon-button svg.ico,.header-contact .icon-button svg.ico{width:22px;height:22px;color:inherit}
+.preference-button svg,.menu-toggle svg{width:22px;height:22px}
+
+.preference-button:is(:hover,:focus-visible),.menu-toggle:is(:hover,:focus-visible),
+.icon-button:is(:hover,:focus-visible),.header-contact .icon-button:is(:hover,:focus-visible){
+  color:var(--hover-accent);border-color:var(--hover-accent);background:var(--hover-tint);box-shadow:none}
+.header-tools{gap:16px}
+.header-contact{padding-inline:0 16px;border-inline-end:1px solid var(--line)}
+
+/* text + icon hovers in footer, contact page and mobile menu */
+.contact-links a:is(:hover,:focus-visible),.contact-links a.whatsapp:is(:hover,:focus-visible),
+.social-link:is(:hover,:focus-visible),.contact-action:is(:hover,:focus-visible),
+.site-footer nav a:hover,.contact-layout a:is(:hover,:focus-visible){color:var(--hover-accent)}
+.contact-links a:is(:hover,:focus-visible) svg.contact-icon,
+.social-link:is(:hover,:focus-visible) svg.contact-icon,
+.contact-action:is(:hover,:focus-visible) svg.contact-icon{color:var(--hover-accent)}
+svg.contact-icon{transition:color .18s}
+.header-inner nav>a:not([aria-current]):is(:hover,:focus-visible)::after{background:var(--hover-accent)}
