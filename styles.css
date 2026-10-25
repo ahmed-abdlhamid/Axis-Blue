@@ -101,8 +101,7 @@ html[lang="en"] .hero-copy>p:not(.intro-label){line-height:1.65}
 .service-section{background:var(--tint);padding-block:var(--section-space)}
 .service-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:32px}
 .service-grid article{border-top:1px solid var(--line);padding-top:22px}
-.service-symbol{display:inline-grid;place-items:center;color:var(--link);width:44px;height:44px;background:var(--panel);border-radius:10px;margin-bottom:14px}
-.service-symbol svg{width:22px;height:22px}
+.service-symbol{display:inline-grid;place-items:center;width:44px;height:44px;margin-bottom:14px}
 .service-grid h3{margin-bottom:8px}
 .service-grid p{font-size:var(--body-size);max-width:45ch}
 .contact-band{margin-block:48px;padding:30px 32px;display:flex;align-items:center;justify-content:space-between;gap:24px;background:var(--navy);color:white;border-radius:var(--radius)}
@@ -225,10 +224,6 @@ input::placeholder{color:var(--muted);opacity:1}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition:none!important}}
 
 /* Approved content update: immersive hero, independent services and a single content CTA. */
-.contact-ring{stroke:var(--contact-neutral)}
-.contact-symbol{color:var(--contact-neutral);transition:color .18s}
-a:is(:hover,:focus-visible) .contact-symbol{color:var(--link)}
-a.whatsapp:is(:hover,:focus-visible) .contact-symbol{color:var(--green)}
 .header-contact .icon-button{border:0;border-radius:0;background:transparent;box-shadow:none}
 .header-contact .icon-button:is(:hover,:focus-visible){background:transparent;box-shadow:none}
 .contact-links a,.social-link,.contact-action{transition:color .18s}
@@ -238,6 +233,7 @@ a.whatsapp:is(:hover,:focus-visible) .contact-symbol{color:var(--green)}
 .contact-action>div{min-width:0}
 .contact-details h2{font-size:22px;line-height:1.4;color:inherit}
 .contact-action .contact-icon{margin-top:1px}
+.contact-band .button:not(:has(svg)){font-size:17px;text-align:center}
 .contact-action .phone-number{display:block;font-size:clamp(28px,calc(25px + .7vw),35px);line-height:1.5;margin-top:10px;color:inherit}
 .contact-prompt{font-weight:700;color:inherit}
 .contact-details .social-link{display:flex;align-items:center;gap:14px;min-height:44px}
@@ -281,10 +277,6 @@ html[lang="en"] .hero h1{font-size:clamp(34px,calc(27px + 1.8vw),50px);line-heig
 .footer-contact .social-link{display:flex;width:fit-content}
 .footer-address{display:flex;align-items:flex-start;gap:10px;line-height:1.85}
 .footer-address .contact-icon{margin-top:4px}
-.contact-icon{width:28px;height:28px;flex-shrink:0}
-.icon-button .contact-icon,.contact-details h2 .contact-icon{width:28px;height:28px}
-.header-contact .contact-frameless{width:36px;height:36px}
-.site-footer .contact-frameless{width:28px;height:28px}
 .address-title{display:flex;align-items:flex-start;gap:10px}
 .address-title .contact-icon{margin-top:5px}
 .facebook-contact .social-link{font-size:22px;line-height:1.4}
@@ -330,3 +322,8 @@ html[lang="en"] .hero h1{font-size:clamp(34px,calc(27px + 1.8vw),50px);line-heig
 @media(prefers-reduced-motion:reduce){.water-reflection{animation:none;display:none}}
 
 .category-image,.product-image{grid-template-rows:minmax(0,1fr);grid-template-columns:minmax(0,1fr)}
+
+/* Shared 32px contact/service medallions; interactive hit areas remain 44px. */
+.brand-icon,.icon-button .brand-icon,.service-symbol .brand-icon{width:32px;height:32px;flex-shrink:0;vertical-align:middle}
+.contact-layout a:is(:hover,:focus-visible){color:var(--link)}
+.brand-icon>svg{width:18px;height:18px}

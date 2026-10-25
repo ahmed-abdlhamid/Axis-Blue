@@ -1,6 +1,13 @@
+# Current homepage photographs — 2026-10-26
+
+- Hero: Jonathan Borba, [Shiny blue water in swimming pool with lane marker](https://www.pexels.com/photo/shiny-blue-water-in-swimming-pool-with-lane-marker-6110595/). Local responsive JPEGs: `hero-blue-water.jpg` (1600 × 650) and `hero-blue-water-1100.jpg` (1100 × 447).
+- Homepage About: Rathaphon Nanthapreecha, [Ladder in swimming pool with transparent water](https://www.pexels.com/photo/ladder-in-swimming-pool-with-transparent-water-8120870/). Local responsive JPEGs: `pool-detail.jpg` (1400 × 1000) and `pool-detail-800.jpg` (800 × 571).
+- Both are real illustrative photographs, not claimed as AXIS Blue projects. Cropping and JPEG compression only. [Pexels license](https://www.pexels.com/license/) permits website use and modification; checked 2026-10-26.
+- About page and social card retain their previous photograph.
+
 # Image sources
 
-## Current full-width hero
+## Previous full-width hero (replaced 2026-10-26)
 
 - Real pool photograph from Unsplash: https://images.unsplash.com/photo-1575429198097-0414ec08e8cd
 - License: https://unsplash.com/license (commercial website use permitted; checked 2026-10-24).
