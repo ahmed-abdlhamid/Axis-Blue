@@ -327,3 +327,19 @@ html[lang="en"] .hero h1{font-size:clamp(34px,calc(27px + 1.8vw),50px);line-heig
 .brand-icon,.icon-button .brand-icon,.service-symbol .brand-icon{width:32px;height:32px;flex-shrink:0;vertical-align:middle}
 .contact-layout a:is(:hover,:focus-visible){color:var(--link)}
 .brand-icon>svg{width:18px;height:18px}
+
+/* ===== AXIS icon system =====
+   One grid (24), one stroke (1.75, round), two colours: ink + a single water-blue accent.
+   Service icons sit on a tinted tile; contact/utility icons are single-colour line icons. */
+:root{--icon-ink:var(--navy);--icon-accent:#187BD1;--icon-tint:#e4f1ff}
+:root[data-theme="dark"]{--icon-ink:#edf5ff;--icon-accent:#7cc4ff;--icon-tint:#254362}
+svg.ico{width:24px;height:24px;flex-shrink:0;vertical-align:middle;overflow:visible}
+svg.contact-icon{color:var(--link)}
+svg.service-icon{width:32px;height:32px;color:var(--icon-ink)}
+.service-symbol{width:56px;height:56px;border-radius:16px;background:var(--icon-tint);margin-bottom:18px}
+.service-detail{grid-template-columns:56px minmax(0,1fr)}
+.icon-button svg.ico{width:26px;height:26px}
+.header-contact .icon-button{color:var(--link)}
+.header-contact .icon-button:is(:hover,:focus-visible){color:var(--ink)}
+.contact-details h2 svg.ico{width:26px;height:26px}
+@media(max-width:600px){.service-detail{grid-template-columns:1fr}}
