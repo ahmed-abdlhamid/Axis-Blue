@@ -1,3 +1,15 @@
+# Current site imagery — 2026-10-26
+
+Generated with the built-in OpenAI image generation tool for this project. All three are illustrative AI-generated scenes, not photographs of AXIS Blue staff or completed projects. No real person or customer photograph was used as a reference.
+
+- `pool-hero-v3-1600.jpg` (1600×650) and `pool-hero-v3-800.jpg` (800×325): modern blue pool hero.
+- `team-installation-1400.jpg` (1400×1050) and `team-installation-800.jpg` (800×600): illustrative installation team, homepage About.
+- `team-maintenance-1400.jpg` (1400×1050) and `team-maintenance-800.jpg` (800×600): illustrative water testing and cleaning team, About page.
+
+Final local JPEGs were resized and compressed from the generated PNGs; no CSS image filters were added. Original generated PNGs remain in the Codex generated_images folder. Prompt set: `GENERATED_IMAGE_PROMPTS.md`. Existing logo, product and social card assets are unchanged.
+
+## Previous image sources (retained assets)
+
 # Current homepage photographs — 2026-10-26
 
 - Hero: Jonathan Borba, [Shiny blue water in swimming pool with lane marker](https://www.pexels.com/photo/shiny-blue-water-in-swimming-pool-with-lane-marker-6110595/). Local responsive JPEGs: `hero-blue-water.jpg` (1600 × 650) and `hero-blue-water-1100.jpg` (1100 × 447).

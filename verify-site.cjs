@@ -21,7 +21,7 @@ for (const prefix of ['', 'en-']) {
     assert(html.includes('data-dark-label=') && html.includes('data-light-label='),`${path}: accessible theme actions`);
     if(name==='index') {
       const hero = html.match(/<figure class="hero-image">([\s\S]*?)<\/figure>/)?.[1];
-      assert(hero?.includes('assets/hero-blue-water.jpg') && hero.includes('fetchpriority="high"') && hero.includes('srcset='),`${path}: responsive priority hero image`);
+      assert(hero?.includes('src="assets/') && hero.includes('fetchpriority="high"') && hero.includes('srcset='),`${path}: responsive priority hero image`);
       assert(!hero.includes('loading="lazy"') && !hero.includes('figcaption'),`${path}: calm hero presentation`);
     }
     assert(!html.includes('floating-wa'), `${path}: no floating WhatsApp`);
