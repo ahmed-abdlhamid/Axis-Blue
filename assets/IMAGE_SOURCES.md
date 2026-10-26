@@ -11,3 +11,7 @@ These scenes were generated with the built-in image_gen tool on 2026-10-26. They
 The owner-supplied logo original is preserved in `logo.png`. Used derivatives are `logo-web.png`, `logo-dark-web.png`, and `favicon.png`.
 
 Product image reference URLs remain in `catalog.json`; all 429 local product images are used. Earlier stock pool photographs and superseded OG/preview images were removed in the cleanup on 2026-10-26.
+
+## Desktop hero revision
+
+The generated hero was edited with the built-in image_gen tool on 2026-10-26 to replace the near-left triangular tiled foreground with matching blue pool water. Local JPEGs: `pool-hero-desktop-1600.jpg` (1600×650) and `pool-hero-desktop-1100.jpg` (1100×447). A picture/source media rule uses this variant only at widths of 1001px and above. The previous image stays unchanged on phones/tablets and in the OG composition. Full edit prompt is in GENERATED_IMAGE_PROMPTS.md.

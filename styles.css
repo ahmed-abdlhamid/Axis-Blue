@@ -288,8 +288,8 @@ input::placeholder{color:var(--muted);opacity:1}
 .contact-details h2{font-size:22px;line-height:1.4;color:inherit}
 .contact-action .contact-icon{margin-top:1px}
 .contact-band .button:not(:has(svg)){font-size:17px;text-align:center}
-.contact-action .phone-number{display:block;font-size:clamp(28px,calc(25px + .7vw),35px);line-height:1.5;margin-top:10px;color:inherit}
-.contact-prompt{font-weight:700;color:inherit}
+.contact-action .phone-number{display:block;font-size:var(--body-size);font-weight:400;line-height:1.6;margin-top:12px;color:inherit}
+.contact-prompt{font-size:var(--body-size);font-weight:700;line-height:1.6;color:inherit}
 .contact-details .social-link{display:flex;align-items:center;gap:14px;min-height:44px}
 .header-inner nav>a:hover,.header-inner nav>a:focus-visible,.header-inner nav>a[aria-current]{background:transparent;color:inherit}
 .header-contact{padding-inline:0 14px;border-inline-start:0;border-inline-end:1px solid var(--line)}
@@ -490,7 +490,13 @@ svg.contact-icon{transition:color .18s}
  .copyright{gap:8px;padding-top:18px}
  .copyright p{font-size:13px}
  .contact-details h2{font-size:21px}
- .contact-action .phone-number{font-size:28px}
+ .facebook-contact .social-link{font-size:21px}
  .address-card{padding:20px}
  .address-title{font-size:24px}
 }
+
+/* Explicit onward links on the homepage. */
+.section-more{display:inline-flex;align-items:center;gap:7px;min-height:44px}
+.section-more .link-arrow{width:17px;height:17px;color:var(--muted);transition:color .18s}
+.section-more:is(:hover,:focus-visible) .link-arrow{color:var(--blue)}
+html[lang="en"] .section-more .link-arrow{transform:rotate(180deg)}
