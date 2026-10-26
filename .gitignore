@@ -1,10 +1,4 @@
-# Local visual QA captures
+# Current browser review outputs
 qa/results/
-assets/preview-*.png
-assets/logo-dark-preview.png
-logo.jpeg
-# Source-site snapshots are documented, but not required to run the site.
-reference/*.html
+# Optional catalog import reports
 reference/*.json
-# Previous one-off generator retained locally for reference.
-reference/build-pages-original.cjs

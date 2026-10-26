@@ -62,6 +62,23 @@ document.addEventListener('click', event => {
 });
 // The selected language is preserved by translated page links, including catalog queries.
 
+// Warm only local documents the visitor is about to open; normal links stay native.
+const warmedDocuments = new Set();
+function warmDocument(event) {
+  if (!/^https?:$/.test(location.protocol) || navigator.connection?.saveData || /2g/.test(navigator.connection?.effectiveType || '')) return;
+  const link = event.target.closest('a[href],.language-toggle');
+  if (!link || link.target === '_blank' || link.hasAttribute('download')) return;
+  const url = new URL(link.dataset.alternate || link.href, location.href);
+  if (url.origin !== location.origin || !url.pathname.endsWith('.html') || url.pathname === location.pathname || warmedDocuments.has(url.pathname)) return;
+  warmedDocuments.add(url.pathname);
+  const preload = document.createElement('link');
+  preload.rel = 'prefetch';
+  preload.href = url.origin + url.pathname;
+  document.head.append(preload);
+}
+document.addEventListener('pointerover', warmDocument, {passive:true});
+document.addEventListener('focusin', warmDocument);
+
 const products = window.AXIS_CATALOG || [];
 const categories = window.AXIS_CATEGORIES || [];
 const params = new URLSearchParams(location.search);
@@ -99,7 +116,11 @@ if (document.querySelector('#catalog-results')) {
       }).join('');
       // Keep pagination compact even when browsing the whole catalog.
       const pageNumbers = [...new Set([1, currentPage - 1, currentPage, currentPage + 1, pageCount])].filter(n => n > 0 && n <= pageCount).sort((a,b) => a-b);
-      pagination.innerHTML = pageCount > 1 ? pageNumbers.map(n => `<button type="button" data-page="${n}" ${n === currentPage ? 'aria-current="page"' : ''} aria-label="${text('الصفحة', 'Page')} ${n}">${n}</button>`).join('') : '';
+      pagination.innerHTML = pageCount > 1 ? pageNumbers.map((n,index) => {
+        const gap = index && n - pageNumbers[index - 1] > 1
+          ? `<span class="pagination-gap" role="img" aria-label="${text('صفحات أخرى', 'More pages')}">…</span>` : '';
+        return gap + `<button type="button" data-page="${n}" ${n === currentPage ? 'aria-current="page"' : ''} aria-label="${text('الصفحة', 'Page')} ${n}">${n}</button>`;
+      }).join('') : '';
       const url = new URL(location.href);
       url.searchParams.set('category', categoryFilter.value);
       query ? url.searchParams.set('q', search.value) : url.searchParams.delete('q');

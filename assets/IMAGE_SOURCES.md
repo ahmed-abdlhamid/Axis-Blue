@@ -1,49 +1,13 @@
-# Current site imagery — 2026-10-26
+# Current imagery
 
-Generated with the built-in OpenAI image generation tool for this project. All three are illustrative AI-generated scenes, not photographs of AXIS Blue staff or completed projects. No real person or customer photograph was used as a reference.
+- `pool-hero-v3-{1600,800}.jpg`: illustrative modern blue swimming pool, 1600×650 / 800×325.
+- `team-installation-{1400,800}.jpg`: illustrative installation team, homepage About, 1400×1050 / 800×600.
+- `team-maintenance-{1400,800}.jpg`: illustrative water testing and cleaning team, About page, 1400×1050 / 800×600.
 
-- `pool-hero-v3-1600.jpg` (1600×650) and `pool-hero-v3-800.jpg` (800×325): modern blue pool hero.
-- `team-installation-1400.jpg` (1400×1050) and `team-installation-800.jpg` (800×600): illustrative installation team, homepage About.
-- `team-maintenance-1400.jpg` (1400×1050) and `team-maintenance-800.jpg` (800×600): illustrative water testing and cleaning team, About page.
+These scenes were generated with the built-in image_gen tool on 2026-10-26. They are not photographs of AXIS Blue employees or completed company projects. Prompts are in `GENERATED_IMAGE_PROMPTS.md`; original PNG outputs remain outside the project in the Codex generated_images folder. The local JPEGs use responsive resizing and compression.
 
-Final local JPEGs were resized and compressed from the generated PNGs; no CSS image filters were added. Original generated PNGs remain in the Codex generated_images folder. Prompt set: `GENERATED_IMAGE_PROMPTS.md`. Existing logo, product and social card assets are unchanged.
+`og-axis-blue-v2.png` (1200×630) is a deterministic HTML composition rendered from `qa/og-card.html` using those current scenes, the supplied logo, and local Zain fonts. No logo or Arabic lettering was regenerated.
 
-## Previous image sources (retained assets)
+The owner-supplied logo original is preserved in `logo.png`. Used derivatives are `logo-web.png`, `logo-dark-web.png`, and `favicon.png`.
 
-# Current homepage photographs — 2026-10-26
-
-- Hero: Jonathan Borba, [Shiny blue water in swimming pool with lane marker](https://www.pexels.com/photo/shiny-blue-water-in-swimming-pool-with-lane-marker-6110595/). Local responsive JPEGs: `hero-blue-water.jpg` (1600 × 650) and `hero-blue-water-1100.jpg` (1100 × 447).
-- Homepage About: Rathaphon Nanthapreecha, [Ladder in swimming pool with transparent water](https://www.pexels.com/photo/ladder-in-swimming-pool-with-transparent-water-8120870/). Local responsive JPEGs: `pool-detail.jpg` (1400 × 1000) and `pool-detail-800.jpg` (800 × 571).
-- Both are real illustrative photographs, not claimed as AXIS Blue projects. Cropping and JPEG compression only. [Pexels license](https://www.pexels.com/license/) permits website use and modification; checked 2026-10-26.
-- About page and social card retain their previous photograph.
-
-# Image sources
-
-## Previous full-width hero (replaced 2026-10-26)
-
-- Real pool photograph from Unsplash: https://images.unsplash.com/photo-1575429198097-0414ec08e8cd
-- License: https://unsplash.com/license (commercial website use permitted; checked 2026-10-24).
-- Local files: `hero-blue-water.jpg` (1600 × 650) and `hero-blue-water-1100.jpg`. The 2026-10-25 revision crops inward from the retained 2200 × 1017 image (left 450px, top 150px), reducing the railing and foreground deck so the pool water occupies more of the hero. Responsive compression only; no generated elements or color filters.
-- Used only for the homepage hero in both languages, as an illustrative pool photograph rather than an AXIS Blue project.
-
-## Retained About and social image
-
-- The wide image uses a top crop (1800 × 1100) of the retained real photograph by Thom Milkovic below. The ladder remains on the left; no equipment was fabricated or added to the scene.
-- Local assets: `pool-wide.jpg` and `pool-wide-1100.jpg`, retained for the approved About sections. Cropping and responsive compression only; no product image colors or source product files were changed.
-- Social image: `og-axis-blue.png`, 1200 × 630. Native HTML composition using the same pool photograph, supplied logo and local Zain font; source layout: `qa/og-card.html`.
-- License: https://unsplash.com/license. Photo page: https://unsplash.com/photos/blue-swimming-pool-vy_cVJCAVG0
-
-## Hero pool photograph
-
-- Photographer: Thom Milkovic.
-- Original photo: https://unsplash.com/photos/blue-swimming-pool-vy_cVJCAVG0
-- Source asset: https://images.unsplash.com/photo-1557459325-b6733cbeae9c
-- License: https://unsplash.com/license (free commercial and non-commercial use, checked 2026-10-24).
-- Local assets: `pool-hero.jpg` (1800 × 2698) and `pool-hero-900.jpg` (900px responsive version).
-- Used as an illustrative photograph, not presented as an AXIS Blue project. No AI generation, retouching or color filters applied.
-
-## Brand assets
-
-The owner supplied `AxisBlue-Final-Centered.png`. `logo.png` preserves that file; header/footer variants remove surrounding blank margins and the white matte. The dark variant keeps the same emblem and lettering geometry with a light wordmark. `favicon.png` uses the supplied wave emblem.
-
-Existing product image sources remain recorded in `catalog.json`; product colors have not been changed.
+Product image reference URLs remain in `catalog.json`; all 429 local product images are used. Earlier stock pool photographs and superseded OG/preview images were removed in the cleanup on 2026-10-26.

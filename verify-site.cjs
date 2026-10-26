@@ -26,7 +26,7 @@ for (const prefix of ['', 'en-']) {
     }
     assert(!html.includes('floating-wa'), `${path}: no floating WhatsApp`);
     assert(html.includes('rel="canonical" href="https://axisblue.vercel.app/'), `${path}: production canonical`);
-    assert(html.includes('content="https://axisblue.vercel.app/assets/og-axis-blue.png"'), `${path}: absolute social image`);
+    assert(html.includes('content="https://axisblue.vercel.app/assets/og-axis-blue-v2.png"'), `${path}: absolute social image`);
     assert(!/مسبح/.test(html), `${path}: approved Arabic vocabulary`);
     assert(html.includes('og:description') && html.includes('name="description"'),`${path}: SEO metadata`);
     assert(!/[←↗↖↙→]/.test(html),`${path}: unwanted arrows`);
