@@ -427,3 +427,70 @@ svg.contact-icon{transition:color .18s}
 @view-transition{navigation:auto}
 ::view-transition-old(root),::view-transition-new(root){animation-duration:120ms}
 @media(prefers-reduced-motion:reduce){@view-transition{navigation:none}::view-transition-group(*),::view-transition-old(*),::view-transition-new(*){animation:none!important}}
+
+.mobile-footer-heading{display:none}
+
+/* Phone layouts only. Tablet and desktop retain the approved presentation. */
+@media(max-width:600px){
+ :root{--body-size:16.5px;--secondary-size:14px;--section-space:30px}
+ h1{font-size:28px}h2{font-size:25px}h3{font-size:20px}
+ .text-link{font-size:15.5px}
+ .header-inner{grid-template-columns:minmax(0,1fr) auto 44px;min-height:66px;padding-block:10px;gap:6px}
+ .brand{grid-column:1;grid-row:1;width:132px;max-width:100%}
+ .header-tools{grid-column:2;grid-row:1;gap:0;justify-self:end}
+ .header-tools .header-contact{display:none}
+ .preferences{gap:4px}
+ .menu-toggle{grid-column:3;grid-row:1}
+ .preference-button,.menu-toggle{border-radius:8px;font-size:15px}
+ .preference-button svg,.menu-toggle svg{width:18px;height:18px}
+ .header-inner nav{grid-column:1/-1;grid-row:2;padding-top:10px}
+ .header-inner nav>a{font-size:17px}
+ .header-inner .nav-contact{display:block;border-top:1px solid var(--line);padding-top:12px;margin-top:6px}
+ .nav-contact .contact-links{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:0}
+ .nav-contact .contact-links a{justify-content:center;gap:6px;min-height:44px;padding:8px 4px;border:1px solid var(--line);border-radius:8px;font-size:15px}
+ .nav-contact svg.ico{width:20px;height:20px}
+ .hero h1{font-size:clamp(30px,8vw,34px);line-height:1.4}
+ html[lang="en"] .hero h1{font-size:clamp(29px,7.7vw,33px);line-height:1.25}
+ .hero-copy>p:not(.intro-label){font-size:16.5px;line-height:1.75}
+ .hero .button{font-size:16px}
+ .section-heading{margin-bottom:18px}
+ .service-grid article{padding:18px}
+ .service-grid p{line-height:1.75}
+ .service-symbol{width:48px;height:48px;border-radius:12px;margin-bottom:14px}
+ .service-symbol svg.service-icon{width:28px;height:28px}
+ .service-detail{padding:20px}
+ .service-detail h2{font-size:24px}
+ .category-card,.product-card{display:grid;grid-template-columns:minmax(0,1fr) 88px;align-items:center;gap:12px;padding:14px 12px}
+ .category-card .card-copy,.product-card .card-copy{grid-column:1;grid-row:1;padding:0;min-width:0}
+ .category-image,.product-image{grid-column:2;grid-row:1;width:88px;height:96px;margin:0;padding:8px;border:0;border-radius:9px}
+ .category-image img,.product-image img{top:0}
+ .category-card h3{font-size:20px;margin-bottom:5px}
+ .category-card p{font-size:16px;line-height:1.65}
+ .product-card{align-items:start}
+ .product-card h3{font-size:18px;line-height:1.55;margin-bottom:4px}
+ .product-card .product-code{font-size:14px;margin-bottom:5px}
+ .product-card p{font-size:15px;line-height:1.65;margin-top:6px}
+ .contact-band{padding:18px 16px;gap:12px;margin-block:28px;align-items:flex-start}
+ .contact-band h2{font-size:clamp(16px,4.7vw,21px);line-height:1.6;max-width:none;text-wrap:wrap}
+ html[lang="ar"] .contact-band h2{white-space:nowrap}
+ .contact-band p{font-size:14.5px;line-height:1.6;margin-top:4px}
+ .contact-band .button,.contact-band .button:not(:has(svg)){font-size:15px;min-height:44px;padding:8px 16px}
+ .site-footer{gap:22px;padding-block:24px;font-size:16px}
+ .footer-brand{width:140px;margin-bottom:12px}
+ .footer-identity>p{font-size:16px;line-height:1.75;max-width:36ch}
+ .site-footer nav{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:2px 16px;width:100%;justify-self:stretch;border-block:1px solid var(--line);padding-block:18px}
+ .mobile-footer-heading{display:block;font-size:16px;font-weight:700;line-height:1.5;margin:0 0 12px}
+ .site-footer nav .mobile-footer-heading{grid-column:1/-1;margin-bottom:6px}
+ .site-footer nav a{display:flex;align-items:center;min-height:44px;font-size:16px;padding-block:6px}
+ .footer-address{font-size:15.5px;line-height:1.75}
+ .footer-contact svg.ico{width:22px;height:22px}
+ .footer-contact .contact-links{margin-top:10px}
+ .footer-contact .contact-links a,.footer-contact .social-link{font-size:16px;min-height:44px}
+ .footer-contact .social-link{margin-top:0}
+ .copyright{gap:8px;padding-top:18px}
+ .copyright p{font-size:13px}
+ .contact-details h2{font-size:21px}
+ .contact-action .phone-number{font-size:28px}
+ .address-card{padding:20px}
+ .address-title{font-size:24px}
+}

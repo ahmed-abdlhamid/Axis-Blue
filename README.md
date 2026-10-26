@@ -14,7 +14,7 @@
 - `assets/icons/sprite.svg`: التعريف المشترك للأيقونات المعتمدة. يضمّنه مولّد الصفحات؛ التراخيص محفوظة في المجلد نفسه.
 - `assets/logo.png`: أصل اللوجو المقدم من المالك، محفوظ كمصدر. `logo-web.png` و`logo-dark-web.png` و`favicon.png` هي النسخ المستخدمة.
 - `assets/pool-hero-v3-*`، `team-installation-*`، `team-maintenance-*`: الصور الحالية بنسختين متجاوبتين. صور مولدة توضيحية وليست توثيقًا لفريق حقيقي أو مشروع منفذ؛ التفاصيل في `assets/IMAGE_SOURCES.md` و`assets/GENERATED_IMAGE_PROMPTS.md`.
-- `assets/og-axis-blue-v2.png`: صورة المشاركة 1200×630، مصدر تصميمها `qa/og-card.html`. تعتمد على اللوجو الأصلي والصور الحالية وعبارة «تجهيز · تركيب · صيانة» والرابط.
+- `assets/og-axis-blue-v3.jpg`: صورة المشاركة JPEG بحجم نحو 132KB ودقة 1200×630، مصدر تصميمها `qa/og-card.html`. تعتمد على اللوجو الأصلي والصور الحالية وعبارة «تجهيز · تركيب · صيانة» والرابط.
 - `catalog.json`، `catalog-data.js`، `site-content.cjs`: 435 منتجًا في 12 فئة، مع 429 صورة محلية مستخدمة. لا يوجد بيع أو أسعار أو تأكيد توافر.
 
 ## الصيانة والفحص
@@ -32,3 +32,7 @@
 لكل صفحة عنوان ووصف وcanonical وhreflang وOG وTwitter، وصورة مشاركة مشتركة بمسار جديد لتقليل كاش الصورة القديمة. النطاق هو https://axisblue.vercel.app/ . بيانات المنتجات الفردية تتحدث بجافاسكربت؛ زواحف المشاركة التي لا تشغّله ترى بيانات صفحة التفاصيل العامة وصورة الشركة المشتركة.
 
 التنظيف الأخير أزال الصور والخطوط والأيقونات المستبدلة ولقطات المراجعات القديمة، وحافظ على صور المنتجات واللوجو الأصلي والتراخيص وأدوات الصيانة. لم يتم commit أو push أو نشر من هذه الجولة.
+
+## Phone review — 2026-10-26
+
+Phone styles are scoped to max-width:600px: single-row header (logo + language/theme/menu), call and WhatsApp links inside the menu, text/image category cards, smaller typography/CTA, and separated footer groups with visible headings. Desktop/tablet styling is preserved. `node qa/verify-mobile.cjs` compares desktop rendering with Git HEAD and audits phone geometry; `node qa/render-og.cjs` renders the share JPEG from its HTML source. No deployment is performed by these tools.

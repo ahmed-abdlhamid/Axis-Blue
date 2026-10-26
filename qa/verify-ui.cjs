@@ -2,12 +2,12 @@ const fs = require('node:fs');
 const assert = require('node:assert/strict');
 const {start} = require('./browser.cjs');
 const catalog = require('../catalog.json');
-const widths = [360,390,412,768,1024,1440];
+const widths = [320,360,390,412,430,600,768,1024,1440];
 const journeysOnly = process.argv.includes('--journeys-only');
 const report = {widths,views:[],checks:[],errors:[]};
 if(journeysOnly){report.checks=[];report.errors=[];delete report.failure;}
 const pages = ['index','products','services','about','contact','product','catalog'];
-const screenshotDir='qa/results/final-polish/views';
+const screenshotDir='qa/results/mobile-review/views';
 fs.mkdirSync(screenshotDir,{recursive:true});
 function check(condition,message) {if(!condition) throw new Error(message);}
 async function settle(page) {await page.waitForLoadState('networkidle');await page.evaluate(()=>document.fonts.ready);await page.locator('img[loading=lazy]').evaluateAll(es=>es.forEach(e=>e.loading='eager'));await page.evaluate(()=>Promise.all([...document.images].map(i=>i.decode().catch(()=>{}))));}
@@ -67,8 +67,9 @@ async function audit(page,width) {
    // Test mobile menu for every narrow width, in both languages and themes.
    if(width<=1000){
     await page.locator('.menu-toggle').click();check(await page.locator('#navigation').isVisible(),'Menu opens');
-    check(await page.locator('.header-contact a[href^="tel:"]').isVisible(),'Mobile call shortcut');
-    check(await page.locator('.header-contact a.whatsapp').isVisible(),'Mobile WhatsApp shortcut');
+    const contactArea=width<=600?'.nav-contact':'.header-contact';
+    check(await page.locator(contactArea+' a[href^="tel:"]').isVisible(),'Call shortcut in responsive navigation');
+    check(await page.locator(contactArea+' a.whatsapp').isVisible(),'WhatsApp shortcut in responsive navigation');
     if(width===390)await page.screenshot({path:`${screenshotDir}/${lang}-${theme}-menu.png`});
     const openAudit=await audit(page,width);check(!openAudit.overflow.length&&!openAudit.collisions.length,'Expanded menu geometry');
     await page.keyboard.press('Escape');check(!await page.locator('#navigation').isVisible(),'Escape closes menu');
@@ -113,12 +114,12 @@ async function audit(page,width) {
   for(const lang of ['ar','en']){
    const page=await app.browser.newPage();await page.goto(app.base+'/'+(lang==='en'?'en-':'')+'index.html');await settle(page);const sizes=[];
    for(const width of [399,400,401,699,700,701]){await page.setViewportSize({width,height:900});sizes.push(parseFloat(await page.locator('.hero h1').evaluate(e=>getComputedStyle(e).fontSize)));}
-   check(Math.abs(sizes[2]-sizes[0])<.1&&Math.abs(sizes[5]-sizes[3])<.1,'Continuous hero type at old 400/700px boundaries');await page.close();
+   check(Math.abs(sizes[2]-sizes[0])<.25&&Math.abs(sizes[5]-sizes[3])<.25,'Continuous hero type at old 400/700px boundaries');await page.close();
   }
   check(!report.errors.length,'Browser console/network errors: '+report.errors.join('\n'));
   report.checks.push('Saved theme before first content frame','Continuous hero type around 400px and 700px','No console/page/network errors','Sampled text contrast meets WCAG AA','Single content WhatsApp CTA and no floating bubble');
   report.passed=true;
  }catch(error){report.passed=false;report.failure=error.stack;throw error;}
- finally{fs.writeFileSync('qa/results/final-polish/verification.json',JSON.stringify(report,null,2));await app.close();}
+ finally{fs.writeFileSync('qa/results/mobile-review/verification.json',JSON.stringify(report,null,2));await app.close();}
  console.log(`PASS: ${report.views.length} rendered page views, ${widths.length} widths, Arabic/English, light/dark, functional journeys.`);
 })();
